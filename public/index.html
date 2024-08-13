@@ -1,42 +1,80 @@
-<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facts.</title>
+    <title>Keyword Input</title>
+    <style>
+        /* Spinner styles */
+        #spinner {
+            display: none;
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-    <h1>Enter a person, place, or animal</h1>
+    <h1>Enter a Keyword</h1>
     <form id="keywordForm">
         <input type="text" id="keywordInput" name="keyword" required>
         <button type="submit">Submit</button>
     </form>
+
+    <!-- Spinner element -->
+    <div id="spinner"></div>
+
+    <!-- Result div to display the results -->
     <div id="result"></div>
 
     <script>
-        document.getElementById('keywordForm').addEventListener('submit', async (event) => {
+        function handleSubmit(event) {
             event.preventDefault();
-            const keyword = document.getElementById('keywordInput').value;
-            console.log('Submitting keyword:', keyword); // Log the keyword being submitted
-            try {
-                const response = await fetch('/api/keyword', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ keyword }),
-                });
+            console.log('Form submission triggered');
+            
+            const keywordInput = document.getElementById('keywordInput');
+            const keyword = keywordInput.value;
+            console.log('Keyword:', keyword);
+            
+            // Show the spinner and clear previous results
+            const spinner = document.getElementById('spinner');
+            const resultDiv = document.getElementById('result');
+            spinner.style.display = 'block';
+            resultDiv.innerHTML = '';
 
-                const resultDiv = document.getElementById('result');
-                resultDiv.innerHTML = '';
-
-                const html = await response.text();
-                document.body.innerHTML += html;
-            } catch (error) {
+            fetch('/api/keyword', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ keyword }),
+            })
+            .then(response => response.text())
+            .then(html => {
+                spinner.style.display = 'none';
+                resultDiv.innerHTML = html;
+                
+                // Clear the input field after displaying the result
+                keywordInput.value = '';
+                console.log('Result displayed and input cleared');
+            })
+            .catch(error => {
                 console.error('Error:', error);
-            }
-        });
+                spinner.style.display = 'none';
+                resultDiv.innerHTML = 'An error occurred while fetching the results.';
+            });
+        }
+
+        document.getElementById('keywordForm').addEventListener('submit', handleSubmit);
     </script>
 </body>
 </html>
