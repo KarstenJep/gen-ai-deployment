@@ -1,0 +1,36 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facts.</title>
+</head>
+<body>
+    <h1>Enter a person, place, or animal</h1>
+    <form id="keywordForm">
+        <input type="text" id="keywordInput" name="keyword" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('keywordForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const keyword = document.getElementById('keywordInput').value;
+            try {
+                const response = await fetch('/api/keyword', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ keyword }),
+                });
+                const result = await response.json();
+                console.log('Server response:', result);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
