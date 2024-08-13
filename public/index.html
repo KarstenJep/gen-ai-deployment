@@ -17,6 +17,7 @@
         document.getElementById('keywordForm').addEventListener('submit', async (event) => {
             event.preventDefault();
             const keyword = document.getElementById('keywordInput').value;
+            console.log('Submitting keyword:', keyword); // Log the keyword being submitted
             try {
                 const response = await fetch('/api/keyword', {
                     method: 'POST',
