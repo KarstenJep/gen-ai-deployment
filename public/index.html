@@ -26,6 +26,10 @@
                     },
                     body: JSON.stringify({ keyword }),
                 });
+
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '';
+
                 const html = await response.text();
                 document.body.innerHTML += html;
             } catch (error) {
