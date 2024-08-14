@@ -127,7 +127,7 @@
     <h1>Fact Generator</h1>
     <form id="keywordForm">
         <h3>Enter a Person, Place, or Thing</h3>
-        <input type="text" id="keywordInput" name="keyword" placeholder="Enter a Person, Place, or Thing" required>
+        <input type="text" id="keywordInput" name="keyword" placeholder="Ex. Zebra" required>
         <button type="submit">Submit</button>
     </form>
 
@@ -145,6 +145,8 @@
             const resultDiv = document.getElementById('result');
             spinner.style.display = 'block';
             resultDiv.innerHTML = '';
+            resultDiv.style.display = 'none';
+            resultDiv.classList.remove('show');
 
             fetch('/api/keyword', {
                 method: 'POST',
@@ -158,6 +160,7 @@
                 spinner.style.display = 'none';
                 resultDiv.style.display = 'block';
                 resultDiv.innerHTML = html;
+                resultDiv.classList.add('show');
                 
                 keywordInput.value = '';
             })
@@ -165,6 +168,8 @@
                 console.error('Error:', error);
                 spinner.style.display = 'none';
                 resultDiv.innerHTML = 'An error occurred while fetching the results.';
+                resultDiv.style.display = 'block';
+                resultDiv.classList.add('show');
             });
         }
 
