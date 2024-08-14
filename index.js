@@ -10,8 +10,6 @@ app.use(express.static('public'));
 
 app.post('/api/keyword', async (req, res) => {
     try {
-        console.log('Request body:', req.body);
-
         const projectId = await auth.getProjectId();
         const vertex = new VertexAI({ project: projectId });
         const generativeModel = vertex.getGenerativeModel({
@@ -19,7 +17,6 @@ app.post('/api/keyword', async (req, res) => {
         });
 
         const keyword = req.body.keyword || 'dog';
-        console.log('Using keyword:', keyword);
         const prompt = `Give me 10 fun facts about ${keyword}. Return this as html without backticks.`
         const resp = await generativeModel.generateContent(prompt);
         const html = resp.response.candidates[0].content.parts[0].text;
