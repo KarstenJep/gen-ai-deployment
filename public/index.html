@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facts.</title>
+    <title>That's Facts.</title>
     <style>
         #spinner {
             display: none;
@@ -70,6 +70,7 @@
     }
 
     #result {
+        display: none;
         margin-top: 20px;
         background: #fff;
         padding: 20px;
@@ -81,16 +82,15 @@
     </style>
 </head>
 <body>
-    <h1>Thats Facts.</h1>
+    <h1>Fact Generator</h1>
     <form id="keywordForm">
         <h3>Enter a Person, Place, or Thing</h3>
         <input type="text" id="keywordInput" name="keyword" required>
         <button type="submit">Submit</button>
     </form>
 
-    <div id="result">    
-        <div id="spinner"></div>
-    </div>
+    <div id="spinner"></div>
+    <div id="result"></div>
 
     <script>
         function handleSubmit(event) {
@@ -114,6 +114,7 @@
             .then(response => response.text())
             .then(html => {
                 spinner.style.display = 'none';
+                resultDiv.style.display = 'block';
                 resultDiv.innerHTML = html;
                 
                 keywordInput.value = '';
