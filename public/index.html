@@ -24,7 +24,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            background: linear-gradient(135deg, #aadcf5, #acb6e5);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -109,6 +109,17 @@
         #result.show {
             opacity: 1;
             border: 2px solid #3498db;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
