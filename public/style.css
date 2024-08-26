@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     background: linear-gradient(135deg, #abd0fa, #ddebf3);
     margin: 0;
-    padding: 20px;
+    padding: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
