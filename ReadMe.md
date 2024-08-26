@@ -1,7 +1,7 @@
 # Fact Generator
 
 ## Description
-Duration: Ongoing
+(Ongoing)
 
 An application utilizing Gen-AI to give users the opportunity to search the top 10 facts on any person, place, or thing. Hosted in GCP and setup with automatic deployments for CI/CD.
 
